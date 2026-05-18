@@ -55,15 +55,23 @@
 function jmheights_fallback_menu() {
     echo '<ul>';
     echo '<li><a href="' . home_url('/') . '">Home</a></li>';
-    echo '<li><a href="' . home_url('/about/') . '">About</a></li>';
-    echo '<li class="menu-item-has-children"><a href="' . home_url('/plumbing/') . '">Services</a>';
+    echo '<li class="menu-item-has-children"><a href="' . home_url('/about/') . '">About</a>';
+    echo '<ul class="sub-menu">';
+    echo '<li><a href="' . home_url('/about/our-story/') . '">Our Story</a></li>';
+    echo '<li><a href="' . home_url('/about/licenses/') . '">Licenses & Credentials</a></li>';
+    echo '<li><a href="' . home_url('/about/team/') . '">Our Team</a></li>';
+    echo '<li><a href="' . home_url('/why-jm-heights/') . '">Why Choose JM Heights</a></li>';
+    echo '</ul></li>';
+    echo '<li class="menu-item-has-children"><a href="#">Services</a>';
     echo '<ul class="sub-menu">';
     echo '<li><a href="' . home_url('/plumbing/') . '">Plumbing</a></li>';
     echo '<li><a href="' . home_url('/hvac/') . '">HVAC</a></li>';
     echo '<li><a href="' . home_url('/heating/') . '">Heating</a></li>';
     echo '<li><a href="' . home_url('/commercial/') . '">Commercial</a></li>';
     echo '</ul></li>';
-    echo '<li><a href="' . home_url('/financing/') . '">Financing</a></li>';
+    echo '<li><a href="' . home_url('/service-areas/') . '">Service Areas</a></li>';
+    echo '<li><a href="' . home_url('/maintenance-plans/') . '">Maintenance Plans</a></li>';
+    echo '<li><a href="' . home_url('/emergency-service/') . '">Emergency Service</a></li>';
     echo '<li><a href="' . home_url('/contact/') . '">Contact</a></li>';
     echo '</ul>';
 }

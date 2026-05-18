@@ -636,7 +636,9 @@ function jmheights_create_menus() {
     $menu_name = 'Primary Navigation';
     $menu_exists = wp_get_nav_menu_object($menu_name);
 
-    if ($menu_exists) return;
+    if ($menu_exists) {
+        wp_delete_nav_menu($menu_exists->term_id);
+    }
 
     $menu_id = wp_create_nav_menu($menu_name);
 
@@ -649,6 +651,31 @@ function jmheights_create_menus() {
         'menu-item-status' => 'publish',
         'menu-item-type' => 'custom',
     ]);
+
+    // About (dropdown)
+    $about_id = wp_update_nav_menu_item($menu_id, 0, [
+        'menu-item-title' => 'About',
+        'menu-item-url' => home_url('/about/'),
+        'menu-item-status' => 'publish',
+        'menu-item-type' => 'custom',
+    ]);
+
+    $about_items = [
+        'Our Story' => '/about/our-story/',
+        'Licenses & Credentials' => '/about/licenses/',
+        'Our Team' => '/about/team/',
+        'Why Choose JM Heights' => '/why-jm-heights/',
+    ];
+
+    foreach ($about_items as $title => $url) {
+        wp_update_nav_menu_item($menu_id, 0, [
+            'menu-item-title' => $title,
+            'menu-item-url' => home_url($url),
+            'menu-item-status' => 'publish',
+            'menu-item-type' => 'custom',
+            'menu-item-parent-id' => $about_id,
+        ]);
+    }
 
     // Services (dropdown)
     $services_id = wp_update_nav_menu_item($menu_id, 0, [
@@ -675,10 +702,26 @@ function jmheights_create_menus() {
         ]);
     }
 
-    // Financing
+    // Service Areas
     wp_update_nav_menu_item($menu_id, 0, [
-        'menu-item-title' => 'Financing',
-        'menu-item-url' => home_url('/financing/'),
+        'menu-item-title' => 'Service Areas',
+        'menu-item-url' => home_url('/service-areas/'),
+        'menu-item-status' => 'publish',
+        'menu-item-type' => 'custom',
+    ]);
+
+    // Maintenance Plans
+    wp_update_nav_menu_item($menu_id, 0, [
+        'menu-item-title' => 'Maintenance Plans',
+        'menu-item-url' => home_url('/maintenance-plans/'),
+        'menu-item-status' => 'publish',
+        'menu-item-type' => 'custom',
+    ]);
+
+    // Emergency Service
+    wp_update_nav_menu_item($menu_id, 0, [
+        'menu-item-title' => 'Emergency Service',
+        'menu-item-url' => home_url('/emergency-service/'),
         'menu-item-status' => 'publish',
         'menu-item-type' => 'custom',
     ]);
