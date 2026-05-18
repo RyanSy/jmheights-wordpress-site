@@ -192,3 +192,67 @@ function jmheights_excerpt_length($length) {
     return 30;
 }
 add_filter('excerpt_length', 'jmheights_excerpt_length');
+
+/**
+ * Google Analytics
+ *
+ * Set your Measurement ID in WordPress Admin → Settings → General → Google Analytics ID
+ * or define JMHEIGHTS_GA_ID in wp-config.php.
+ */
+function jmheights_google_analytics() {
+    $ga_id = defined('JMHEIGHTS_GA_ID') ? JMHEIGHTS_GA_ID : get_option('jmheights_ga_id', '');
+    if (empty($ga_id) || is_admin()) return;
+    ?>
+    <!-- Google Analytics (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=<?php echo esc_attr($ga_id); ?>"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', '<?php echo esc_js($ga_id); ?>');
+    </script>
+    <?php
+}
+add_action('wp_head', 'jmheights_google_analytics', 1);
+
+/**
+ * Google Analytics Settings Field
+ */
+function jmheights_register_ga_setting() {
+    register_setting('general', 'jmheights_ga_id', [
+        'type'              => 'string',
+        'sanitize_callback' => 'sanitize_text_field',
+        'default'           => '',
+    ]);
+
+    add_settings_field(
+        'jmheights_ga_id',
+        'Google Analytics ID',
+        'jmheights_ga_id_field_cb',
+        'general',
+        'default',
+        ['label_for' => 'jmheights_ga_id']
+    );
+}
+add_action('admin_init', 'jmheights_register_ga_setting');
+
+function jmheights_ga_id_field_cb($args) {
+    $value = get_option('jmheights_ga_id', '');
+    echo '<input type="text" id="jmheights_ga_id" name="jmheights_ga_id" value="' . esc_attr($value) . '" class="regular-text" placeholder="G-XXXXXXXXXX">';
+    echo '<p class="description">Enter your Google Analytics 4 Measurement ID (e.g. G-XXXXXXXXXX).</p>';
+}
+
+/**
+ * Recommend Yoast SEO plugin
+ */
+function jmheights_admin_notice_yoast() {
+    if (is_plugin_active('wordpress-seo/wp-seo.php')) return;
+    $screen = get_current_screen();
+    if ($screen && $screen->id !== 'dashboard') return;
+    ?>
+    <div class="notice notice-info is-dismissible">
+        <p><strong>JM Heights:</strong> Install <a href="<?php echo admin_url('plugin-install.php?s=yoast+seo&tab=search&type=term'); ?>">Yoast SEO</a> for XML sitemaps, meta tags, and search engine optimization.</p>
+    </div>
+    <?php
+}
+add_action('admin_notices', 'jmheights_admin_notice_yoast');
