@@ -275,10 +275,13 @@ function jmheights_get_page_data() {
             'order' => 7,
             'template' => 'page-templates/template-service-areas.php',
             'content' => '',
-            'children' => [
-                ['title' => 'Bergen County', 'slug' => 'service-areas/bergen-county', 'order' => 1, 'content' => jmheights_county_content('Bergen County')],
-                ['title' => 'Passaic County', 'slug' => 'service-areas/passaic-county', 'order' => 2, 'content' => jmheights_county_content('Passaic County')],
-            ],
+            'children' => array_merge(
+                [
+                    ['title' => 'Bergen County', 'slug' => 'service-areas/bergen-county', 'order' => 1, 'content' => jmheights_county_content('Bergen County')],
+                    ['title' => 'Passaic County', 'slug' => 'service-areas/passaic-county', 'order' => 2, 'content' => jmheights_county_content('Passaic County')],
+                ],
+                jmheights_get_town_pages()
+            ),
         ],
 
         // Maintenance Plans
@@ -311,8 +314,6 @@ function jmheights_get_page_data() {
         ['title' => 'Financing', 'slug' => 'financing', 'order' => 12, 'content' => jmheights_financing_page_content()],
         ['title' => 'Coupons & Specials', 'slug' => 'coupons', 'order' => 13, 'content' => jmheights_coupons_content()],
         ['title' => 'FAQs', 'slug' => 'faqs', 'order' => 14, 'content' => jmheights_faqs_content()],
-        ['title' => 'Terms of Use', 'slug' => 'terms', 'order' => 15, 'content' => '<h2>Terms of Use</h2><p>Please review our terms of use. By using this website, you agree to the following terms and conditions.</p>'],
-        ['title' => 'Privacy Policy', 'slug' => 'privacy', 'order' => 16, 'content' => '<h2>Privacy Policy</h2><p>Your privacy is important to us. This policy outlines how we collect, use, and protect your personal information.</p>'],
     ];
 }
 
@@ -698,4 +699,72 @@ function jmheights_create_menus() {
 
 function jmheights_water_heaters_content() {
     return jmheights_service_page_content('Water Heaters', 'Complete water heater services — installation, repair, and replacement for tank and tankless systems. Our licensed plumbers work with all major brands and handle both gas and electric units.', ['Tank water heaters', 'Tankless water heaters', 'Gas & electric systems', 'Installation & replacement', 'Repair & maintenance', 'Emergency service']);
+}
+
+function jmheights_get_town_pages() {
+    $bergen_towns = [
+        'Allendale', 'Bergenfield', 'Cliffside Park', 'Closter', 'Cresskill',
+        'Demarest', 'Dumont', 'Edgewater', 'Elmwood Park', 'Emerson',
+        'Englewood', 'Englewood Cliffs', 'Fair Lawn', 'Fort Lee', 'Franklin Lakes',
+        'Garfield', 'Glen Rock', 'Hackensack', 'Hasbrouck Heights', 'Hillsdale',
+        'Ho-Ho-Kus', 'Leonia', 'Lodi', 'Lyndhurst', 'Mahwah',
+        'Maywood', 'Midland Park', 'Montvale', 'New Milford', 'Oakland',
+        'Old Tappan', 'Oradell', 'Palisades Park', 'Paramus', 'Park Ridge',
+        'Ramsey', 'Ridgefield', 'Ridgefield Park', 'Ridgewood', 'River Edge',
+        'River Vale', 'Rutherford', 'Saddle Brook', 'Saddle River', 'Teaneck',
+        'Tenafly', 'Upper Saddle River', 'Waldwick', 'Westwood', 'Woodcliff Lake',
+        'Wyckoff',
+    ];
+
+    $passaic_towns = [
+        'Bloomingdale', 'Clifton', 'Hawthorne', 'Little Falls', 'Passaic',
+        'Paterson', 'Pompton Lakes', 'Ringwood', 'Totowa', 'Wanaque',
+        'Wayne', 'West Milford', 'Woodland Park',
+    ];
+
+    $pages = [];
+    $order = 3;
+
+    foreach ($bergen_towns as $town) {
+        $slug = sanitize_title($town);
+        $pages[] = [
+            'title' => $town,
+            'slug'  => 'service-areas/' . $slug,
+            'order' => $order++,
+            'content' => jmheights_town_content($town, 'Bergen County'),
+        ];
+    }
+
+    foreach ($passaic_towns as $town) {
+        $slug = sanitize_title($town);
+        $pages[] = [
+            'title' => $town,
+            'slug'  => 'service-areas/' . $slug,
+            'order' => $order++,
+            'content' => jmheights_town_content($town, 'Passaic County'),
+        ];
+    }
+
+    return $pages;
+}
+
+function jmheights_town_content($town, $county) {
+    return "<h2>HVAC & Plumbing Services in $town</h2>
+<p>JM Heights Cooling Corp. proudly serves homeowners and businesses in $town, $county. With over 56 years of experience, we're $town's trusted local choice for heating, cooling, and plumbing services.</p>
+
+<h3>Services Available in $town</h3>
+<ul>
+<li>AC installation, repair & maintenance</li>
+<li>Heating system installation & repair</li>
+<li>Plumbing services</li>
+<li>Drain cleaning & sewer services</li>
+<li>Water heater installation & repair</li>
+<li>Emergency HVAC & plumbing service</li>
+</ul>
+
+<h3>Why $town Trusts JM Heights</h3>
+<p>We're your neighbors. Family owned and operated since 1969, we've been serving $county communities — including $town — for over five decades. Licensed, insured, and committed to honest work at fair prices.</p>
+
+<h3>Schedule Service in $town</h3>
+<p>Ready to get started? Call us at <a href=\"tel:+12018243272\">(201) 824-3272</a> or <a href=\"/contact/\">request a free estimate online</a>.</p>";
 }
