@@ -1,0 +1,25 @@
+# WordPress core (installed via Docker)
+wp-admin/
+wp-includes/
+wp-*.php
+xmlrpc.php
+/index.php
+license.txt
+readme.html
+
+# Uploads (user content)
+wp-content/uploads/
+
+# Docker volumes
+db_data/
+wp_data/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
