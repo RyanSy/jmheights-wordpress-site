@@ -10,6 +10,11 @@ if (!defined('ABSPATH')) exit;
 
 register_activation_hook(__FILE__, 'jmheights_setup_content');
 
+// Load Google Docs import tool (admin only)
+if (is_admin()) {
+    require_once plugin_dir_path(__FILE__) . 'import-google-docs.php';
+}
+
 function jmheights_setup_content() {
     // Set up reading settings
     $front_page = jmheights_create_front_page();
