@@ -31,6 +31,7 @@ services:
       - wp_data:/var/www/html
       - ./wp-content/themes/jmheights:/var/www/html/wp-content/themes/jmheights
       - ./wp-content/plugins/jmheights-setup:/var/www/html/wp-content/plugins/jmheights-setup
+      - ./site-structure.md:/var/www/html/site-structure.md
 
 volumes:
   db_data:
