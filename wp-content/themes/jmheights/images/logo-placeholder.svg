@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" fill="none">
+  <circle cx="100" cy="100" r="96" fill="#0a1628" stroke="#e8701a" stroke-width="4"/>
+  <circle cx="100" cy="100" r="80" fill="#131f35" stroke="#2563eb" stroke-width="2"/>
+  <!-- Flame icon -->
+  <path d="M100 45c-8 12-20 28-20 45 0 16.569 13.431 30 30 30s30-13.431 30-30c0-3-0.5-6-1.5-9-2 4-5 7-9 7-6.627 0-12-5.373-12-12 0-3 1-6 3-8.5C112.5 55 105 48 100 45z" fill="#e8701a" opacity="0.9"/>
+  <path d="M100 65c-4 8-12 18-12 28 0 8.837 7.163 16 16 16s16-7.163 16-16c0-2-0.3-4-1-6-1.5 3-4 5-7 5-4.418 0-8-3.582-8-8 0-2 0.5-4 2-5.5C102 72 100.5 68 100 65z" fill="#f59e4b" opacity="0.8"/>
+  <!-- Text -->
+  <text x="100" y="140" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="white" letter-spacing="2">JM HEIGHTS</text>
+  <text x="100" y="156" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#9ca3af" letter-spacing="3">COOLING CORP.</text>
+</svg>
